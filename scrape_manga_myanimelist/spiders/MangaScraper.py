@@ -26,6 +26,9 @@ class MangaScraper(scrapy.Spider):
         genres = response.css('span[itemprop="genre"]::text').getall()
         publish = response.xpath('//div[contains(span[@class="dark_text"], "Published:")]/text()').get()
         authors = response.xpath('//div[@class="spaceit_pad"]/span[@class="dark_text"][contains(text(), "Authors")]/following-sibling::a/text()').getall()
+        decription_text = response.css('span[itemprop="description"]').get()
+        synopsis = scrapy.Selector(text=decription_text).xpath('//text()').getall()
+        synopsis = ' '.join(synopsis).replace('\r\n', '').replace('\n', '').replace('\r', '').replace('\t', '').strip()
 
         item = {
             'rank': rank[1:],
@@ -37,6 +40,7 @@ class MangaScraper(scrapy.Spider):
             'genres': genres,
             'publish': publish[:14].strip().replace("  ", " "),
             'authors': authors,
+            'synopsis': synopsis,
         }
 
         yield item
