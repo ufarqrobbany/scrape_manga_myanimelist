@@ -100,4 +100,3 @@ DEPTH_PRIORITY = 1
 CONCURRENT_REQUESTS = 1
 SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleFifoDiskQueue'
 SCHEDULER_MEMORY_QUEUE = 'scrapy.squeues.FifoMemoryQueue'
-
